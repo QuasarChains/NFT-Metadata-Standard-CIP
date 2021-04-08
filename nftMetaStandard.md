@@ -70,7 +70,7 @@ The **`description`** property is optional.
 
 The **`type`** and **`src`** properties are optional. If **`type`** is defined, **`src`** will be an URI pointing to a resource of this mime type. If the mime type is `image/*`, **`src`** points to the same image in an higher resolution.
 
-The **`version`** property is also optional. If not specified the version is 1.0. Ongoing versions require the **`version`** key.
+The **`version`** property is also optional. If not specified the version is "1.0". It will become mandatory in future versions if needed.
 
 This structure really just defines the basis. New properties and standards can be defined later on for varies uses cases. That's why there is an "other properties" tag.
 
