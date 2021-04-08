@@ -76,6 +76,21 @@ This structure really just defines the basis. New properties and standards can b
 
 The retrieval of the metadata should be the same for all however.
 
+
+Optional fields allow to save space in the blockchain. Consequently the minimal structure for a single token is:
+```
+{
+  "721": {
+    "<policy_id>": {
+      "<asset_name>": {
+        "name": "<name>",
+        "image": "<uri>"
+      }
+    }
+  }
+}
+```
+
 ### Retrieve valid metadata for a specific token
 
 As mentioned above this metadata structure allows to have either one token or multiple tokens with also different policies in a single mint transaction. A third party tool can then fetch the token metadata seamlessly. It doesn't matter if the metadata includes just one token or multiple. The proceedure for the third party is always the same:
