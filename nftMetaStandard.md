@@ -45,8 +45,8 @@ The structure allows for multiple token mints, also with different policies, in 
 ```
 {
   "721": {
-    [policy_id]: {
-      [asset_name]: {
+    "<policy_id>": {
+      "<asset_name>": {
         "name": "<name>",
         "image": "<uri>",
         "description": "<description>"
@@ -59,7 +59,7 @@ The structure allows for multiple token mints, also with different policies, in 
       ...
     },
     ...,
-    "version":"<version>"
+    "version": "1.0"
   }
 }
 ```
