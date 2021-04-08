@@ -1,7 +1,7 @@
 ---
 CIP: 16
 Title: NFT Metadata Standard
-Authors: Alessandro Konrad <alessandro.konrad@live.de>
+Authors: Alessandro Konrad <alessandro.konrad@live.de>, Smaug <smaug@pool.pm>
 Comments-URI:
 Status: Draft
 Type: Informational
@@ -68,7 +68,7 @@ The <b>image</b> and <b>name</b> property are marked as required. <b>image</b> s
 
 The <b>description</b> property is optional.
 
-The <b>type</b> and <b>src</b> properties are optional.
+The **`type`** and **`src`** properties are optional. If **`type`** is defined, **`src`** will be an URI pointing to a resource of this mime type. If the mime type is `image/*`, **`src`** points to the same image in an higher resolution.
 
 The <b>version</b> property is also optional. If not specified the version is 1.0. Ongoing versions require the <b>version</b> key.
 
