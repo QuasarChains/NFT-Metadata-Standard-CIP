@@ -103,7 +103,7 @@ As mentioned above this metadata structure allows to have either one token or mu
 
 ### Update metadata link for a specific token
 
-Using the latest mint transaction with the label 721 as valid metadata for a token allows to update the metadata link of this token. As soon as a new mint transaction is occuring including metadata with the label 721, the old metadata is overwritten. This is only possible if the policy allows to mint or burn the same token again.
+Using the latest mint transaction with the label 721 as valid metadata for a token allows to update the metadata link of this token. As soon as a new mint transaction is occurring including metadata with the label 721, the metadata link is considered updated and the new metadata should be used. This is only possible if the policy allows to mint or burn the same token again.
 
 ## References
 
