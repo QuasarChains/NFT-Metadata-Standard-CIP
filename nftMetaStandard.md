@@ -90,6 +90,7 @@ Optional fields allow to save space in the blockchain. Consequently the minimal 
   }
 }
 ```
+This also makes this structure backward compatible with the most common format currently used in the blockchain.
 
 ### Retrieve valid metadata for a specific token
 
