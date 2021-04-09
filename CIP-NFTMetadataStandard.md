@@ -1,12 +1,12 @@
 ---
-CIP: 16
+CIP:
 Title: NFT Metadata Standard
 Authors: Alessandro Konrad <alessandro.konrad@live.de>, Smaug <smaug@pool.pm>
 Comments-URI:
 Status: Draft
 Type: Informational
 Created: 2021-04-08
-Post-History: https://forum.cardano.org/t/cip-nft-metadata-standard/45687
+Post-History: https://forum.cardano.org/t/cip-nft-metadata-standard/45687 and https://www.reddit.com/r/CardanoDevelopers/comments/mkhlv8/nft_metadata_standard/
 License: CC-BY-4.0
 ---
 
@@ -76,8 +76,8 @@ This structure really just defines the basis. New properties and standards can b
 
 The retrieval of the metadata should be the same for all however.
 
-
 Optional fields allow to save space in the blockchain. Consequently the minimal structure for a single token is:
+
 ```
 {
   "721": {
@@ -90,6 +90,7 @@ Optional fields allow to save space in the blockchain. Consequently the minimal 
   }
 }
 ```
+
 This also makes this structure backward compatible with the most common format currently used in the blockchain.
 
 ### Retrieve valid metadata for a specific token
