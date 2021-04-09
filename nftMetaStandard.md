@@ -1,7 +1,7 @@
 ---
 CIP: 16
 Title: NFT Metadata Standard
-Authors: Alessandro Konrad <alessandro.konrad@live.de>
+Authors: Alessandro Konrad <alessandro.konrad@live.de>, Smaug <smaug@pool.pm>
 Comments-URI:
 Status: Draft
 Type: Informational
@@ -28,7 +28,7 @@ Cardano has the ability to send metadata in a transaction, that's the way we can
 
 ## Considerations
 
-That being said, we have unique metadata link to a token and can always prove that with 100% certainty. No one else can manipulate the link except if the policy allows it to (<a href="#update">update mechanism</a>).
+That being said, we have unique metadata link to a token and can always prove that with 100% certainty. No one else can manipulate the link except if the policy allows it to ([update mechanism](#update-metadata-link-for-a-specific-token)).
 
 ## Specification
 
@@ -45,8 +45,8 @@ The structure allows for multiple token mints, also with different policies, in 
 ```
 {
   "721": {
-    [policy_id]: {
-      [asset_name]: {
+    "<policy_id>": {
+      "<asset_name>": {
         "name": "<name>",
         "image": "<uri>",
         "description": "<description>"
@@ -59,22 +59,38 @@ The structure allows for multiple token mints, also with different policies, in 
       ...
     },
     ...,
-    "version":"<version>"
+    "version": "1.0"
   }
 }
 ```
 
-The <b>image</b> and <b>name</b> property are marked as required. <b>image</b> should be an URI pointing to a resource with mime type image/\* used as thumbnail or as actual link if the NFT is an image (ideally <= 1MB).
+The **`image`** and **`name`** property are marked as required. **`image`** should be an URI pointing to a resource with mime type `image/*` used as thumbnail or as actual link if the NFT is an image (ideally <= 1MB).
 
-The <b>description</b> property is optional.
+The **`description`** property is optional.
 
-The <b>type</b> and <b>src</b> properties are optional.
+The **`type`** and **`src`** properties are optional. If **`type`** is defined, **`src`** will be an URI pointing to a resource of this mime type. If the mime type is `image/*`, **`src`** points to the same image in an higher resolution.
 
-The <b>version</b> property is also optional. If not specified the version is 1.0. Ongoing versions require the <b>version</b> key.
+The **`version`** property is also optional. If not specified the version is "1.0". It will become mandatory in future versions if needed.
 
 This structure really just defines the basis. New properties and standards can be defined later on for varies uses cases. That's why there is an "other properties" tag.
 
 The retrieval of the metadata should be the same for all however.
+
+
+Optional fields allow to save space in the blockchain. Consequently the minimal structure for a single token is:
+```
+{
+  "721": {
+    "<policy_id>": {
+      "<asset_name>": {
+        "name": "<name>",
+        "image": "<uri>"
+      }
+    }
+  }
+}
+```
+This also makes this structure backward compatible with the most common format currently used in the blockchain.
 
 ### Retrieve valid metadata for a specific token
 
@@ -86,17 +102,17 @@ As mentioned above this metadata structure allows to have either one token or mu
 4. Lookup the Asset name of the token
 5. You end up with the correct metadata for the token
 
-### <span id="update">Update metadata link for a specific token</span>
+### Update metadata link for a specific token
 
-Using the latest mint transaction with the label 721 as valid metadata for a token allows to update the metadata link of this token. As soon as a new mint transaction is occuring including metadata with the label 721, the old metadata is overwritten. This is only possible if the policy allows to mint or burn the same token again.
+Using the latest mint transaction with the label 721 as valid metadata for a token allows to update the metadata link of this token. As soon as a new mint transaction is occurring including metadata with the label 721, the metadata link is considered updated and the new metadata should be used. This is only possible if the policy allows to mint or burn the same token again.
 
 ## References
 
-- Mime type: https://tools.ietf.org/html/rfc6838).
+- Mime type: https://tools.ietf.org/html/rfc6838.
 - CIP about reserved labels: https://github.com/cardano-foundation/CIPs/blob/master/CIP-0010/CIP-0010.md
 - EIP-721: https://eips.ethereum.org/EIPS/eip-721
 - URI: https://tools.ietf.org/html/rfc3986, https://tools.ietf.org/html/rfc2397
 
 ## Copyright
 
-This CIP is licensed under CC-BY-4.0
+This CIP is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
