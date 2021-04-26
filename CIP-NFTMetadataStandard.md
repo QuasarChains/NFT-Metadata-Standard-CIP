@@ -1,6 +1,6 @@
 ---
 CIP:
-Title: NFT Metadata Standard
+Title: NFT Media Metadata Standard
 Authors: Alessandro Konrad <alessandro.konrad@live.de>, Smaug <smaug@pool.pm>
 Comments-URI:
 Status: Draft
@@ -12,7 +12,7 @@ License: CC-BY-4.0
 
 ## Abstract
 
-This proposal defines an NFT Metadata Standard for Native Tokens.
+This proposal defines an NFT Media Metadata Standard for Native Tokens.
 
 ## Motivation
 
@@ -40,8 +40,6 @@ This is the registered `transaction_metadatum_label` value
 
 ### Structure
 
-The structure allows for multiple token mints, also with different policies, in a single transaction.
-
 ```
 {
   "721": {
@@ -55,10 +53,8 @@ The structure allows for multiple token mints, also with different policies, in 
         "src": "<uri>"
 
         <other properties>
-      },
-      ...
-    },
-    ...,
+      }
+    }
     "version": "1.0"
   }
 }
@@ -74,38 +70,7 @@ The **`version`** property is also optional. If not specified the version is "1.
 
 This structure really just defines the basis. New properties and standards can be defined later on for varies uses cases. That's why there is an "other properties" tag.
 
-The retrieval of the metadata should be the same for all however.
-
-Optional fields allow to save space in the blockchain. Consequently the minimal structure for a single token is:
-
-```
-{
-  "721": {
-    "<policy_id>": {
-      "<asset_name>": {
-        "name": "<name>",
-        "image": "<uri>"
-      }
-    }
-  }
-}
-```
-
 This also makes this structure backward compatible with the most common format currently used in the blockchain.
-
-### Retrieve valid metadata for a specific token
-
-As mentioned above this metadata structure allows to have either one token or multiple tokens with also different policies in a single mint transaction. A third party tool can then fetch the token metadata seamlessly. It doesn't matter if the metadata includes just one token or multiple. The proceedure for the third party is always the same:
-
-1. Find the latest mint transaction with the label 721 in the metadata of the specific token
-2. Lookup the 721 key
-3. Lookup the Policy Id of the token
-4. Lookup the Asset name of the token
-5. You end up with the correct metadata for the token
-
-### Update metadata link for a specific token
-
-Using the latest mint transaction with the label 721 as valid metadata for a token allows to update the metadata link of this token. As soon as a new mint transaction is occurring including metadata with the label 721, the metadata link is considered updated and the new metadata should be used. This is only possible if the policy allows to mint or burn the same token again.
 
 ## References
 
