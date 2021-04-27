@@ -68,14 +68,14 @@ This is the registered `transaction_metadatum_label` value
         ? description: tstr,
 
         ? files: [file]
-
       }
-    }
+    },
+    ? version: tstr
   }
 }
 
 file = {
-  name: tstr,
+  ? name: tstr,
   ? mime: tstr,
   src: uri, [tstr] //
 }
