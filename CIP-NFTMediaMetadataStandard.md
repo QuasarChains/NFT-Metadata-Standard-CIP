@@ -16,20 +16,6 @@ This proposal defines an NFT Media Metadata Standard for Native Tokens.
 
 ## Motivation
 
-Tokens on Cardano are a part of the ledger. Unlike on Ethereum, where metadata can be attached to a token through a smart contract, this isn't possible on Cardano because tokens are native and Cardano uses a UTxO ledger, which makes it hard to directly attach metadata to a token.
-So the link to the metadata needs to be established differently.
-Cardano has the ability to send metadata in a transaction, that's the way we can create a link between a token and the metadata. To make the link unique, the metadata should be appended to the same transaction, where the token forge happens:
-
-> Given a token in a EUTXOma ledger, we can ask “where did this token come from?” Since tokens
-> are always created in specific forging operations, we can always trace them back through their
-> transaction graph to their origin.
-
-(Section 4.1 in the paper: https://hydra.iohk.io/build/5400786/download/1/eutxoma.pdf)
-
-## Considerations
-
-That being said, we have unique metadata link to a token and can always prove that with 100% certainty. No one else can manipulate the link except if the policy allows it to ([update mechanism](#update-metadata-link-for-a-specific-token)).
-
 ## Specification
 
 This is the registered `transaction_metadatum_label` value
@@ -46,11 +32,18 @@ This is the registered `transaction_metadatum_label` value
     "<policy_id>": {
       "<asset_name>": {
         "name": "<name>",
-        "image": "<uri>",
+
+        "image": "<uri | array>",
+        "mime": "<mime_type>",
+
         "description": "<description>"
 
-        "type": "<mime_type>",
-        "src": "<uri>"
+        "files": [{
+          "name": "<name>",
+          "mime": "<mime_type>",
+          "src": "<uri | array>",
+          <other_properties>
+        }],
 
         <other properties>
       }
@@ -60,11 +53,39 @@ This is the registered `transaction_metadatum_label` value
 }
 ```
 
+#### CDDL
+
+```
+{
+  721: {
+    <policy_id>: {
+      <asset_name>: {
+        name: tstr,
+
+        image: uri, [tstr] //
+        ? mime: tstr,
+
+        ? description: tstr,
+
+        ? files: [file]
+
+      }
+    }
+  }
+}
+
+file = {
+  name: tstr,
+  ? mime: tstr,
+  src: uri, [tstr] //
+}
+```
+
 The **`image`** and **`name`** property are marked as required. **`image`** should be an URI pointing to a resource with mime type `image/*` used as thumbnail or as actual link if the NFT is an image (ideally <= 1MB).
 
 The **`description`** property is optional.
 
-The **`type`** and **`src`** properties are optional. If **`type`** is defined, **`src`** will be an URI pointing to a resource of this mime type. If the mime type is `image/*`, **`src`** points to the same image in an higher resolution.
+The **`mime`** and **`src`** properties are optional. If **`mime`** is defined, **`src`** will be an URI pointing to a resource of this mime type. If the mime type is `image/*`, **`src`** points to the same image in an higher resolution.
 
 The **`version`** property is also optional. If not specified the version is "1.0". It will become mandatory in future versions if needed.
 
